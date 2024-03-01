@@ -6,28 +6,22 @@
     <title>Document</title>
 </head>
 <body>
-<?php
-$fruta = array("color"=>"rojo", "sabor"=>"dulce", "nombre"=>"Pera");
-// accedemos a “color”
-   echo $fruta['color']; // rojo
-   //Modificar
-   $fruta['color'] = "amarillo";
-   // Añadir
-   $fruta['temporada'] = "verano"; //otro item
-   //eliminar
-   unset($fruta["sabor"]); //Unset elimina del array
-//array_diff Crea un nuevo array sin el/los elemento/s
-   $nuevo_array = array_diff($fruta, ["amarillo"]); 
-   foreach ($fruta as $x => $y) {
-       echo "$x: $y <br>"; // La forma de imprimir claves
-     }
-// recoger una clave
-     $keys = array_keys($fruta);
-     echo $keys[1]; // ”sabor”
 
-  foreach ($fruta as $x) {
-       echo "$x <br>"; // amarillo dulce...
-     }
- ?>
+<?php
+$frutas = array(
+    array("color" => "amarillo", "sabor" => "dulce", "nombre" => "Pera"),
+    array("color" => "verde", "sabor" => "acido", "nombre" => "Lima"),
+    array("color" => "naranja", "sabor" => "dulce", "nombre" => "Naraja")
+);
+
+foreach ($frutas as $fruta) {
+    echo "<b>".$fruta["nombre"]."</b><br>"; // Corregir la comilla de cierre
+    foreach ($fruta as $clave => $dato) {
+        // Corregir las comillas y agregar un espacio después de "clave"
+        echo $clave . ": " . $dato . "<br>"; // Corregir las comillas y agregar un salto de línea
+    }
+}
+?>
+
 </body>
 </html>
