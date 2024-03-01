@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=<?php
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<?php
 $fruta = array("color"=>"rojo", "sabor"=>"dulce", "nombre"=>"Pera");
 // accedemos a “color”
    echo $fruta['color']; // rojo
@@ -24,10 +28,6 @@ $fruta = array("color"=>"rojo", "sabor"=>"dulce", "nombre"=>"Pera");
   foreach ($fruta as $x) {
        echo "$x <br>"; // amarillo dulce...
      }
- ?>, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
+ ?>
 </body>
 </html>
