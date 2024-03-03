@@ -21,6 +21,26 @@ foreach ($contactos as $contacto) {
         echo $clave . ": " . $dato . "<br>"; // Corregir las comillas y agregar un salto de línea
     }
 }
+
+   $fruta['color'] = "amarillo";
+   // Añadir
+   $fruta['temporada'] = "verano"; //otro item
+   //eliminar
+   unset($fruta["sabor"]); //Unset elimina del array
+//array_diff Crea un nuevo array sin el/los elemento/s
+   $nuevo_array = array_diff($fruta, ["amarillo"]); 
+   foreach ($fruta as $x => $y) {
+       echo "$x: $y <br>"; // La forma de imprimir claves
+     }
+// recoger una clave
+     $keys = array_keys($fruta);
+     echo $keys[1]; // ”sabor”
+
+  foreach ($fruta as $x) {
+       echo "$x <br>"; // amarillo dulce...
+     }
+ ?>
+
 ?>
 
 </body>
