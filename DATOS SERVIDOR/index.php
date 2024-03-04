@@ -7,19 +7,10 @@
 </head>
 <body>
 <?php
-$i = 4;
 
-while ($i >= 1) {
-    $j = 1;
-    while ($j <= $i) {
-        echo "*";
-        $j++;
-    }
-    echo "<br>";
-    $i--;
-};
-echo "<hr>";
-
+foreach ($_SERVER as $key => $value) {
+    echo "<b>".$key."</b>: ".$value."<br>";
+}
 ?>
 </body>
 </html>
