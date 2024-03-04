@@ -21,8 +21,8 @@ foreach ($contactos as $contacto) {
 };
 echo "<hr>";
    
-$contactos[] = array("nombre" => "Pedro", "telefono" => "63478967", "correoelectronico" => "Pedro98@gmail.com"); // Otra forma de agregar un nuevo contacto
-$contactos[0]["telefono"] = "834530778"; // Cambié el teléfono del primer contacto
+$contactos[] = array("nombre" => "Pedro", "telefono" => "63478967", "correoelectronico" => "Pedro98@gmail.com"); 
+$contactos[0]["telefono"] = "834530778"; 
 
 foreach ($contactos as $contacto) {
     echo "<b>".$contacto["nombre"]."</b><br>";
