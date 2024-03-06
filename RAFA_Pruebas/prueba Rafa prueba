@@ -15,23 +15,6 @@
    </form>
 <?php
 
-// Definir array con los nombres de los participantes
-$concursantes = array(
-        "Juan",
-        "María",
-        "Pedro",
-        "Ana",
-        "Luis",
-    );
-    if ($_SERVER['REQUEST_METHOD'] == "POST") { ?>
-        <?php echo $_POST["premio1"]; ?><br>
-        <?php echo $_POST["cantidad1"]; ?><br>
-        <?php echo $_POST["premio2"]; ?><br>
-        <?php echo $_POST["cantidad2"]; ?><br>
-    
-    <?php 
-    }
-
 // Función para generar un array aleatorio con los índices de los ganadores
 function creaListaaleatrorios($premios, $cantConcursantes) {
     $ganadores = array();
@@ -42,12 +25,28 @@ function creaListaaleatrorios($premios, $cantConcursantes) {
             $ganadores[] = $ganador;
         }
     }
-    return $ganadores;
 }
+    return $ganadores;
+    if ($_SERVER['REQUEST_METHOD'] == "POST") { ?>
+        <?php echo $_POST["premio1"]; ?><br>
+        <?php echo $_POST["cantidad1"]; ?><br>
+        <?php echo $_POST["premio2"]; ?><br>
+        <?php echo $_POST["cantidad2"]; ?><br>
+    
+    <?php 
+    }
+   
+// Definir array con los nombres de los participantes
+$concursantes = array(
+    "Juan",
+    "María",
+    "Pedro",
+    "Ana",
+    "Luis",
+);
 foreach ($concursantes as $concursante) {
     echo "<li>$concursante</li>";
 }
-
 
 // Llamar a la función. Con la cantidad de premios y la cantidad de participantes
 $premio1 = $_POST["premio1"];
