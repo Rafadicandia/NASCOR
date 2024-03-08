@@ -29,20 +29,21 @@ $estudiantes = array(
            "notas" => array(6, 8, 9)
        )
    );
-   //1. La edad de María.
-   echo $estudiantes[1]["nombre"];
+   //El nombre de todos los estudiantes.
+   echo "<h2>Lista de estudiantes</h2><br>";
+   foreach ($estudiantes as $estudiante) {
+       echo "<b>".$estudiante["nombre"]."</b><br>";
+   }
    echo "<hr>";
-   //2. La segunda nota de Carlos.
-   echo $estudiantes[2]["notas"][1];
+   //La edad de María.
+   echo "El segundo estudiante se llama: ".$estudiantes[1]["nombre"];
    echo "<hr>";
-   //3. El nombre de todos los estudiantes.
-    foreach ($estudiantes as $estudiante) {
-        echo "<b>".$estudiante["nombre"]."</b><br>";
-    }
-    echo "<hr>";
-   //4. La media de notas de Laura *
+   //La segunda nota de Carlos.
+   echo "La segunda nota de Carlos es: ".$estudiantes[2]["notas"][1];
+   echo "<hr>";
+   //La media de notas de Laura *
    $mediaLaura = array_sum($estudiantes[3]["notas"]) / count($estudiantes[3]["notas"]);
-    echo $mediaLaura
+    echo "La media de notas de Laura es ".$mediaLaura
 
 
 ?>
