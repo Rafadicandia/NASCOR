@@ -41,7 +41,6 @@ $estudiantes = array(
     }
     echo "<hr>";
    //4. La media de notas de Laura *
-   //$notasLaura = array($estudiantes[3]["notas"]);
    $mediaLaura = array_sum($estudiantes[3]["notas"]) / count($estudiantes[3]["notas"]);
     echo $mediaLaura
 
