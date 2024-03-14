@@ -58,11 +58,13 @@ function test_input($data)
 </form>
 
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['comment'])) {
     $file = fopen("formulario_$name.txt", 'x');
     fwrite($file, "<h1>Hola: $name</h1><br>E-mail: $email<br><br>Comment: $comment<br>");
     fclose($file);
-}
+}else{
+        echo "<h3>falta información</h3>";
+    }
 ?>
 
 </body>
