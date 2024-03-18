@@ -62,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['name']) && !empty($_P
     $file = fopen("formulario_$name.txt", 'x');
     fwrite($file, "<h1>Hola: $name</h1><br>E-mail: $email<br><br>Comment: $comment<br>");
     fclose($file);
+    echo "<h3>Gracias!</h3>";
 }else{
         echo "<h3>falta información</h3>";
     }
