@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = $_POST['titulo'];
     $texto = $_POST['texto'];
     $categoria = $_POST['categoria'];
+    $imagen = $_POST['imagen'];
     $q = "INSERT INTO noticias (titulo, texto, categoria, imagen) VALUES ('$titulo', '$texto', '$categoria', '$imagen')";
     mysqli_query($conexion, $q);
 }
@@ -37,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         
         .tabla-noticias th {
-            background-color: #004080;
+            background-color: #004090;
             color: #fff;
             padding: 5px;
             text-align: center;
@@ -77,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <td><?php echo $row["texto"]; ?></td>
                     <td><?php echo $row["categoria"]; ?></td>
                     <td><?php echo $row["fecha"]; ?></td>
-                    <td><?php echo $row["imagen"]; ?></td>
+                    <td><img src="<?php echo $row["imagen"]; ?>" alt="Imagen"></td>
                 </tr>
             <?php } ?>
         </tbody>
@@ -91,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <label for="categoria">Categoría:</label><br>
     <input type="text" name="categoria" id="categoria"><br>
     <label for="imagen">Imagen:</label><br>
-    <input type="text" name="imagen" id="imagen"><br><br>
+    <input type="text" name="imagen" id="imagen"><br>
     <input type="submit" value="Añadir">
 </form>
 
