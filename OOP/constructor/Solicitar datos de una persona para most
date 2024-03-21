@@ -1,0 +1,4 @@
+Solicitar datos de una persona para mostrarlos en pantalla. 
+Los datos que solicitamos son: Nobre competo, su email, empleo, su titulación y un comentario sobre sí misma. 
+Creamos un objeto con esos datos utilizando una clase. Los atributos definidos en la clase deben estar como ‘private’.
+Después imrimimos los datos de los alumnos en una tarjeta que contenga una imagen de avatar del usuario decorada con CSS.
