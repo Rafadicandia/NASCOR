@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = $_POST['titulo'];
     $texto = $_POST['texto'];
     $categoria = $_POST['categoria'];
-    $q = "INSERT INTO noticias (titulo, texto, categoria) VALUES ('$titulo', '$texto', '$categoria')";
+    $q = "INSERT INTO noticias (titulo, texto, categoria, imagen) VALUES ('$titulo', '$texto', '$categoria', '$imagen')";
     mysqli_query($conexion, $q);
 }
 
@@ -83,21 +83,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </tbody>
     </table>
 
-    <table class="send">
-        <tr>
-            <td>
-                <form action="tablanoticias.php" name="formulario" method="post">
-                    <label for="titulo">Título: </label><br>
-                    <input type="text" name="titulo" id="titulo"><br>
-                    <label for="texto">Texto: </label><br>
-                    <input type="text" name="texto" id="texto"><br>
-                    <label for="categoria">Categoría: </label><br>
-                    <input type="text" name="categoria" id="categoria"><br><br>
-                    <input type="submit" value="Añadir">
-                </form>
-            </td>
-        </tr>
-    </table>
+    <form action="TABLANOTICIAS.php" name="formulario" method="post" enctype="multipart/form-data">
+    <label for="titulo">Título:</label><br>
+    <input type="text" name="titulo" id="titulo"><br>
+    <label for="texto">Texto:</label><br>
+    <input type="text" name="texto" id="texto"><br>
+    <label for="categoria">Categoría:</label><br>
+    <input type="text" name="categoria" id="categoria"><br>
+    <label for="imagen">Imagen:</label><br>
+    <input type="text" name="imagen" id="imagen"><br><br>
+    <input type="submit" value="Añadir">
+</form>
+
 </body>
 </html>
 
