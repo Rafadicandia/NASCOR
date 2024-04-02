@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Creamos la consulta sql
     $q = "INSERT INTO noticias SET titulo='$titulo', texto='$texto', categoria='$categoria', imagen='$imagen'";
     // Procedemos a insertar los datos.
-    consulta ($q);
+    mysqli_query(conexion(), $q);
 }
 $desde = 0;
 // Hacemos una consulta a una tabla
@@ -31,11 +31,11 @@ $desde = 0;
 //$hasta = $desde +5;
 // Añadiremos LIMIT
 $query = "SELECT * FROM noticias";
-$result = consulta ($q);
-$nfilas = contar_filas($q);
+$result = consulta ($query);
+$nfilas = contar_filas($query);
 $query = "SELECT DISTINCT categoria FROM noticias ORDER BY categoria";
-$resultCats = mysqli_query($conexion, $query);
-mysqli_close($conexion);
+$resultCats = consulta($query);
+
 ?>
 
 <!DOCTYPE html>

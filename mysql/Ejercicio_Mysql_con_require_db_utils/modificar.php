@@ -1,14 +1,5 @@
 <?php
-// INI archivo.ini
-$host = "localhost";
-$user = "Rafael_erp";
-$password = "Rafaelerp2024";
-$database = "noticias";
-$conexion = mysqli_connect($host, $user, $password) or die ("No se puede conectar con el servidor");
-//
-// Seleccionamos la base de datos
-
-mysqli_select_db($conexion, $database) or die ("No se puede seleccionar la base de datos");
+require("db_utils.php");
 
 if (!isset($_POST['id'])){
     $mensaje = "ERROR: Faltan parámetros requeridos <a href='index.php'>Volver</a>";
@@ -25,8 +16,8 @@ $id = $_POST['id'];
 $q="UPDATE noticias SET titulo='$titulo',texto='$texto',imagen='$imagen', categoria='$categoria' WHERE id ='$id'";
 
 $referrer = $_SERVER['HTTP_REFERER'];
-if (!$result=mysqli_query($conexion,$q)){
-    $mensaje = "ERROR: Faltan parámetros requeridos <a href='$referrer'>Volver</a>";
+if (!consulta($q)){
+    $mensaje = "ERROR:  <a href='$referrer'>Volver</a>";
     echo $mensaje;
     exit;
 }

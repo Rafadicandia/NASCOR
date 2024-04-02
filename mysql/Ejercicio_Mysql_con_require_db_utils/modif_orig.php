@@ -5,11 +5,10 @@ if (!isset($_POST["id"]) || !isset($_POST["titulo"])){
     echo $mensaje;
     exit;
 }
-
 $host = "localhost";
-$user = "Rafael_erp";
-$password = "Rafaelerp2024";
-$database = "noticias";
+    $user = "administrador@wayhoy.com";
+    $password = "ablaracurcix";
+    $database = "noticias";
     // Conexión
     $conexion = mysqli_connect($host, $user, $password) or die ("No se puede conectar con el servidor");
     //

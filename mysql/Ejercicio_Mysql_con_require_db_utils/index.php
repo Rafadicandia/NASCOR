@@ -1,18 +1,5 @@
 <?php
-// INI archivo.ini
-$host = "localhost";
-$user = "Rafael_erp";
-$password = "Rafaelerp2024";
-$database = "noticias";
-
-// Conexión
-$conexion = mysqli_connect($host, $user, $password) or die ("No se puede conectar con el servidor");
-
-//
-// Seleccionamos la base de datos
-
-mysqli_select_db($conexion, $database) or die ("No se puede seleccionar la base de datos");
-
+require("db_utils.php");
 // Comprobamos si recibimos datos por post para insertarlos en la base de datos. 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -34,23 +21,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Creamos la consulta sql
     $q = "INSERT INTO noticias SET titulo='$titulo', texto='$texto', categoria='$categoria', imagen='$imagen'";
     // Procedemos a insertar los datos.
-    mysqli_query($conexion, $q);
+    mysqli_query(conexion(), $q);
 }
 $desde = 0;
 // Hacemo una consulta a una tabla
-//if (isset($_GET['desde']))
-//$desde = $_GET['desde'];
-//$hasta = $desde +5;
+// if (isset($_GET['desde']))
+// $desde = $_GET['desde'];
+// $hasta = $desde +5;
 // Añadiremos LIMIT
 $query = "SELECT * FROM noticias";
-$result = mysqli_query($conexion, $query) or die ("Fallo en la consulta");
+$result = consulta($query);
 
-$nfilas = mysqli_num_rows($result); // Obtiene la cantidad de resultados de la consulta
+$nfilas = contar_filas($query); // Obtiene la cantidad de resultados de la consulta
 //$fila = mysqli_fetch_array($result);
 
 $query = "SELECT DISTINCT categoria FROM noticias ORDER BY categoria";
-$resultCats = mysqli_query($conexion, $query);
-mysqli_close($conexion); // Cerramos la conexión
+$resultCats = consulta($query);
+ // Cerramos la conexión
 
 ?>
 
@@ -126,7 +113,7 @@ mysqli_close($conexion); // Cerramos la conexión
     <table>
         <tr>
             <th colspan="6">
-                <?php echo "Tenemos $nfilas usuarios<hr>"; ?>
+                <?php echo "Tenemos $nfilas noticias<hr>"; ?>
             </th>
         </tr>
         <!-- Fila de campos de la tabla de datos -->
@@ -166,6 +153,7 @@ mysqli_close($conexion); // Cerramos la conexión
                     ?>
                     <form action="eliminar.php" method="post">
                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                        <input type="hidden" name="imagen" value="<?php echo $row['imagen']; ?>">
                         <input type="submit" value="Eliminar" class="eliminar">
                     </form>
                 </td>

@@ -10,8 +10,8 @@ if (!isset ($_GET["id"])) {
     $id = $_GET["id"];
     // INI archivo.ini
     $host = "localhost";
-    $user = "Rafael_erp";
-    $password = "Rafaelerp2024";
+    $user = "administrador@wayhoy.com";
+    $password = "ablaracurcix";
     $database = "noticias";
     // Conexión
     $conexion = mysqli_connect($host, $user, $password) or die ("No se puede conectar con el servidor");

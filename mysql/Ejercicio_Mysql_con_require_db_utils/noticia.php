@@ -1,5 +1,5 @@
 <?php 
-
+require("db_utils.php");
 
 if (!isset ($_GET["id"])) {
     $mensaje = "ERROR: Faltan parámetros requeridos <a href='index.php'>Volver</a>";
@@ -8,19 +8,9 @@ if (!isset ($_GET["id"])) {
 
 } else {
     $id = $_GET["id"];
-    // INI archivo.ini
-    $host = "localhost";
-    $user = "Rafael_erp";
-    $password = "Rafaelerp2024";
-    $database = "noticias";
-    // Conexión
-    $conexion = mysqli_connect($host, $user, $password) or die ("No se puede conectar con el servidor");
-    //
-    // Seleccionamos la base de datos
-    mysqli_select_db($conexion, $database) or die ("No se puede seleccionar la base de datos");
 
     $q = "SELECT * FROM noticias WHERE id=$id";
-    $result = mysqli_query($conexion, $q);
+    $result = consulta($q);
     $noticia = mysqli_fetch_array($result);
     $titulo = $noticia['titulo'];
     $texto = $noticia['texto'];
@@ -28,9 +18,7 @@ if (!isset ($_GET["id"])) {
     $fecha = $noticia['fecha'];
     $imagen = $noticia['imagen'];
 $query = "SELECT DISTINCT categoria FROM noticias ORDER BY categoria";
-$resultCats = mysqli_query($conexion, $query) or die ("Fallo en la consulta");
-
-    mysqli_close($conexion);
+$resultCats = consulta($query);
 }
 
 ?>
