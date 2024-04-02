@@ -1,15 +1,5 @@
 <?php
-// INI
-$host = "localhost";
-$user = "Rafael_erp";
-$password = "Rafaelerp2024";
-$database = "noticias";
-
-// Conexión
-$conexion = mysqli_connect($host, $user, $password) or die ("No se puede conectar con el servidor");
-// Seleccionamos la base de datos
-
-mysqli_select_db($conexion, $database) or die ("Fallo en la conexión");
+require ("db_utilis.php");
 
 // Comprobamos si recibimos datos por post para insertarlos en la base de datos. 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -32,17 +22,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Creamos la consulta sql
     $q = "INSERT INTO noticias SET titulo='$titulo', texto='$texto', categoria='$categoria', imagen='$imagen'";
     // Procedemos a insertar los datos.
-    mysqli_query($conexion, $q);
+    consulta ($q);
 }
 $desde = 0;
-// Hacemo una consulta a una tabla
+// Hacemos una consulta a una tabla
 //if (isset($_GET['desde']))
 //$desde = $_GET['desde'];
 //$hasta = $desde +5;
 // Añadiremos LIMIT
 $query = "SELECT * FROM noticias";
-$result = mysqli_query($conexion, $query) or die ("Fallo en la consulta");
-$nfilas = mysqli_num_rows($result);
+$result = consulta ($q);
+$nfilas = contar_filas($q);
 $query = "SELECT DISTINCT categoria FROM noticias ORDER BY categoria";
 $resultCats = mysqli_query($conexion, $query);
 mysqli_close($conexion);
