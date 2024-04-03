@@ -45,14 +45,29 @@ $resultCats = consulta($query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conexión a MySQL</title>
     <style>
+         input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .eliminar {
+            background-color: red !important;
+            width:50% !important
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
         .tabla-noticias {
             width: 100%;
             margin: 20px auto;
             border-collapse: collapse;
+            background-color: #E2E3E4;
         }
         
         .tabla-noticias th {
-            background-color: #004090;
+            background-color: #2C497F;
             color: #fff;
             padding: 5px;
             text-align: center;
@@ -69,6 +84,29 @@ $resultCats = consulta($query);
         
         .tabla-noticias a {
             color: #004080;
+        }
+        form {
+            width:60%;
+            max-width: 400px;
+            margin: 20px auto;
+            /*padding: 20px;*/
+            background-color: transparent;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"],
+        input[type="file"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .eliminar {
+            background-color: red !important;
+            width:50% !important
         }
     </style>
 </head>
@@ -89,27 +127,28 @@ $resultCats = consulta($query);
                 <tr>
                     <td><?php echo $row["id"]; ?></td>
                     <td><?php echo $row["titulo"]; ?></td>
-                    <td> <?php
-                   $strFinal = substr($row["texto"], 0, 100);
+                    <td> 
+                        <?php
+                        $strFinal = substr($row["texto"], 0, 100);
 
-                   echo substr($row["texto"], 0, 100);
-                   if ($strFinal < $row["texto"]){
+                        echo substr($row["texto"], 0, 100);
+                        if ($strFinal < $row["texto"]){
                        echo " ... ";
-                   }
+                        }
                        echo " <br><a href='noticia.php?id=" . $row['id'] ."'>Ir a la noticia completa -></a><br>";
                        echo " <a href='noticia.php?id=" . $row['id'] ."&update=true'>Modificar noticia -></a>";
-                   ?></td>
+                        ?>
                    
-                  
-                    <td><?php echo $row["categoria"]; ?></td>
-                    <td><?php echo $row["fecha"]; ?></td>
-                    <td><img src="<?php echo $row["imagen"]; ?>" alt="Imagen"></td>
-                    <td>
                         <form action="eliminar.php" method="post">
                             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                            <input type="hidden" name="imagen" value="<?php echo $row['imagen']; ?>">
                             <input type="submit" value="Eliminar" class="eliminar">
                         </form>
                     </td>
+                    <td><?php echo $row["categoria"]; ?></td>
+                    <td><?php echo $row["fecha"]; ?></td>
+                    <td><img src="<?php echo $row["imagen"]; ?>" alt="Imagen"></td>
+                    
                 </tr>
             <?php } ?>
         </tbody>
