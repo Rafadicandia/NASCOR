@@ -1,0 +1,72 @@
+input[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.tabla-noticias {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #E2E3E4;
+}
+
+.tabla-noticias th {
+    background-color: #2C497F;
+    color: #fff;
+    padding: 5px;
+    text-align: center;
+}
+
+.tabla-noticias td {
+    padding: 5px;
+    border: 3px solid #ddd;
+}
+
+.tabla-noticias td img {
+    width: 50px;
+}
+
+.tabla-noticias a {
+    color: #004080;
+}
+
+form {
+    width:60%;
+    max-width: 400px;
+    margin: 20px auto;
+    /*padding: 20px;*/
+    background-color: transparent;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.form a {
+    name: "texto";
+    width: 300px;
+    border: 15px solid green;
+    padding: 50px;
+    margin: 20px;
+
+}
+
+input[type="text"],
+input[type="file"],
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.eliminar {
+    background-color: red !important;
+    width: 100px !important;
+}

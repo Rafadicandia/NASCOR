@@ -1,26 +1,27 @@
-<?php
-if (!isset($_GET["id"])) {
+<?php 
+
+
+if (!isset ($_GET["id"])) {
     $mensaje = "ERROR: Faltan parámetros requeridos <a href='index.php'>Volver</a>";
     echo $mensaje;
     exit;
+
 } else {
     $id = $_GET["id"];
     // INI archivo.ini
     $host = "localhost";
-    $user = "Rafael_erp";
-    $password = "Rafaelerp2024";
+    $user = "administrador@wayhoy.com";
+    $password = "ablaracurcix";
     $database = "noticias";
     // Conexión
-    $conexion = mysqli_connect($host, $user, $password, $database) or die("No se puede conectar con el servidor o seleccionar la base de datos");
+    $conexion = mysqli_connect($host, $user, $password) or die ("No se puede conectar con el servidor");
+    //
     // Seleccionamos la base de datos
+    mysqli_select_db($conexion, $database) or die ("No se puede seleccionar la base de datos");
+
     $q = "SELECT * FROM noticias WHERE id=$id";
     $result = mysqli_query($conexion, $q);
-    if (!$result || mysqli_num_rows($result) == 0) {
-        $mensaje = "ERROR: La noticia no existe <a href='index.php'>Volver</a>";
-        echo $mensaje;
-        exit;
-    }
-    $noticia = mysqli_fetch_assoc($result);
+    $noticia = mysqli_fetch_array($result);
     $titulo = $noticia['titulo'];
     $texto = $noticia['texto'];
     $categoria = $noticia['categoria'];
@@ -29,14 +30,17 @@ if (!isset($_GET["id"])) {
     $mensaje = $titulo;
     mysqli_close($conexion);
 }
+
 ?>
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ficha noticia</title>
+    <title>Noticia Profesional</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -136,55 +140,57 @@ if (!isset($_GET["id"])) {
 
 <body>
 
-    <div class="news-card">
-        <img src="<?php echo $imagen; ?>" alt="Imagen de la noticia">
-        <div class="news-info">
-            <h2>
-                <?php echo $mensaje; ?>
-            </h2>
+    <div class="container">
+        <h2 class="title">
+            <?php echo $mensaje; ?>
+        </h2>
+        <div class="image">
+            <img src="<?php echo $imagen; ?>" alt="Imagen de la noticia">
+        </div>
+        <p class="date">Publicado
+            <?php echo $fecha; ?>
+        </p>
+        <div class="text">
             <p>
-                <?php echo $texto; ?><br>
-            </p>
-            Fecha de publicación: <br>
-            <p class="date">
-                <?php echo $fecha; ?>
+                <?php echo $texto; ?>
             </p>
         </div>
+        <p class="author">Categoría: <?php echo $categoria; ?></p>
     </div>
-
-    <?php if (isset($_GET["modificar"]) || isset($_POST["modificar"])) { ?>
-        <div class="container">
-            <h2>Modificar Noticia</h2>
-            <form action="noticia.php" method="post">
-                <input type="hidden" name="modificar" value="true">
-                <input type="hidden" name="id" value="<?php echo $id; ?>">
-                <div class="form-group">
-                    <label for="titulo">Título:</label>
-                    <input type="text" id="titulo" name="titulo" value="<?php echo $titulo; ?>">
-                </div>
-                <div class="form-group">
-                    <label for="texto">Texto:</label>
-                    <textarea id="texto" name="texto" rows="4"><?php echo $texto; ?></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="image">URL de la imagen:</label>
-                    <input type="text" id="imagen" name="imagen" value="<?php echo $imagen; ?>">
-                </div>
-                <div class="form-group">
-                    <label for="categoria">Categoria:</label>
-                    <input type="text" id="categoria" name="categoria" value="<?php echo $categoria; ?>">
-                </div>
-                <div class="form-group">
-                    <label for="date">Fecha de publicación:</label>
-                    <?php echo $fecha; ?>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Guardar Cambios">
-                </div>
-            </form>
+    <!-- Comienza el formulario -->
+    <?php 
+    if (isset($_GET['modificar'])){ ?>
+    <div class="container">
+    <h2>Modificar Noticia</h2>
+    <form action="modificar.php" method="post">
+        <div class="form-group">
+            <label for="title">Título:</label>
+            <input type="text" id="titulo" name="titulo" value="Título de la noticia">
         </div>
+        <div class="form-group">
+            <label for="text">Texto:</label>
+            <textarea id="texto" name="texto" rows="4">
+            <?php echo $texto; ?>
+            </textarea>
+                 </div>
+        <div class="form-group">
+            <label for="image">URL de la imagen:</label>
+            <input type="text" id="imagen" name="imagen" value="<?php echo $imagen; ?>">
+        </div>
+        <div class="form-group">
+            <label for="date">Fecha de publicación:</label>
+            <input type="text" id="fecha" name="fecha" value="<?php echo $fecha; ?>">
+        </div>
+        <div class="form-group">
+            <label for="categoria">Fecha de publicación:</label>
+            <input type="text" id="categoria" name="categoria" value="<?php echo $categoria; ?>">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Guardar Cambios">
+        </div>
+    </form>
     <?php } ?>
-
+</div>    
 </body>
 
 </html>

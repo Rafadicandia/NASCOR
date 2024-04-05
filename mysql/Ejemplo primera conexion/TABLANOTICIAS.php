@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = $_POST['titulo'];
     $texto = $_POST['texto'];
     $categoria = $_POST['categoria'];
+    $user_id = $_POST['user_id'];
     // Tratamiento de imagen
     $imagen = "img/default.jpg";
     if (isset($_FILES["file"]) && $_FILES['file']['size'] > 0){
@@ -20,11 +21,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $imagen = $imagePath;
     }
     // Creamos la consulta sql
-    $q = "INSERT INTO noticias SET titulo='$titulo', texto='$texto', categoria='$categoria', imagen='$imagen'";
+    $q = "INSERT INTO noticias SET titulo='$titulo', texto='$texto', categoria='$categoria', imagen='$imagen', user_id='$user_id'";
     // Procedemos a insertar los datos.
     mysqli_query(conexion(), $q);
 }
-$desde = 0;
+$num = 3;
+$comienzo = 0;
+if (isset($_GET['comienzo'])) {
+ 
+    $comienzo = $_GET['comienzo'];
+}
+$columna = "id";
+if (isset($_GET['columna'])) {
+    $columna = $_GET['columna'];
+}
 // Hacemos una consulta a una tabla
 //if (isset($_GET['desde']))
 //$desde = $_GET['desde'];
@@ -44,77 +54,15 @@ $resultCats = consulta($query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conexión a MySQL</title>
-    <style>
-         input[type="submit"] {
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        .eliminar {
-            background-color: red !important;
-            width:50% !important
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
-        .tabla-noticias {
-            width: 100%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            background-color: #E2E3E4;
-        }
-        
-        .tabla-noticias th {
-            background-color: #2C497F;
-            color: #fff;
-            padding: 5px;
-            text-align: center;
-        }
-        
-        .tabla-noticias td {
-            padding: 5px;
-            border: 1px solid #ddd;
-        }
-        
-        .tabla-noticias td img {
-            width: 50px;
-        }
-        
-        .tabla-noticias a {
-            color: #004080;
-        }
-        form {
-            width:60%;
-            max-width: 400px;
-            margin: 20px auto;
-            /*padding: 20px;*/
-            background-color: transparent;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        input[type="text"],
-        input[type="file"],
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .eliminar {
-            background-color: red !important;
-            width:50% !important
-        }
-    </style>
+    <link rel="stylesheet" href="./styles.css">
+
 </head>
 <body>
     <table class="tabla-noticias">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>user_id</th>
                 <th>Título</th>
                 <th>Texto</th>
                 <th>Categoría</th>
@@ -126,6 +74,7 @@ $resultCats = consulta($query);
             <?php while ($row = mysqli_fetch_array($result)) { ?>
                 <tr>
                     <td><?php echo $row["id"]; ?></td>
+                    <td><?php echo $row["user_id"]; ?></td>
                     <td><?php echo $row["titulo"]; ?></td>
                     <td> 
                         <?php
@@ -136,7 +85,7 @@ $resultCats = consulta($query);
                        echo " ... ";
                         }
                        echo " <br><a href='noticia.php?id=" . $row['id'] ."'>Ir a la noticia completa -></a><br>";
-                       echo " <a href='noticia.php?id=" . $row['id'] ."&update=true'>Modificar noticia -></a>";
+                       echo " <a href='noticia2.php?id=" . $row['id'] ."&update=true'>Modificar noticia -></a>";
                         ?>
                    
                         <form action="eliminar.php" method="post">
@@ -153,6 +102,18 @@ $resultCats = consulta($query);
             <?php } ?>
         </tbody>
     </table>
+    <?php if ($comienzo > 0) {
+        ?>
+        <a href="tablanoticias.php?comienzo=<?php echo $comienzo - $num; ?>">
+            << Retroceder <?php echo $num; ?>
+        </a>
+    <?php } ?>
+    <?php if ($comienzo + $num <= $nfilas) { ?>
+        <a href="tablanoticias.php?comienzo=<?php echo $comienzo + $num; ?>">
+            Avanzar >>
+            <?php echo $num; ?>
+        </a>
+    <?php } ?>
 
     <form name="form" action="tablanoticias.php" method="POST" enctype="multipart/form-data">
         Título:<br>
