@@ -30,7 +30,7 @@ body {
 }
 
 .tabla-noticias td img {
-    width: 50px;
+    width: 100px;
 }
 
 .tabla-noticias a {
@@ -69,4 +69,29 @@ input[type="submit"] {
 .eliminar {
     background-color: red !important;
     width: 100px !important;
+}
+@import url(https://fonts.googleapis.com/css?family=Vidaloka|Oswald:400,300);
+
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 ;
+    padding: 0 20px;
+}
+
+/* Estilos específicos para la cabecera del usuario */
+.user-header {
+    background-color: #333;
+    color: #fff;
+    padding: 5px 0;
+    text-align: center;
+}
+
+.user-header h1 {
+    font-size: 24px;
 }
