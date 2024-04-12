@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["password"]) && isset($
     $titulo = $_POST['titulo'];
     $texto = $_POST['texto'];
     $categoria = $_POST['categoria'];
-    $user_id = $_POST['user_id'];
+    //$user_id = $_POST['user_id'];
     // Tratamiento de imagen
     $imagen = "img/default.jpg";
     if (isset($_FILES["file"]) && $_FILES['file']['size'] > 0) {
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["password"]) && isset($
         $imagen = $imagePath;
     }
     // Creamos la consulta sql
-    $q = "INSERT INTO noticias SET titulo='$titulo', texto='$texto', categoria='$categoria', imagen='$imagen', user_id='$user_id'";
+    $q = "INSERT INTO noticias SET titulo='$titulo', texto='$texto', categoria='$categoria', imagen='$imagen'";
     // Procedemos a insertar los datos.
     mysqli_query(conexion(), $q);
 }
