@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--URL API http://localhost:8888/Nascor/MYSQL/Ejemplo%20primera%20conexion/select.php -->
+
+    <div id="escribiendo"></div>
+
+    <script>
+        let urlBase = "http://localhost:8888/Nascor/MYSQL/Ejemplo%20primera%20conexion/"
+        function bucle(datos) {
+            let elDiv = document.getElementById("escribiendo");
+            let html = "";
+            console.log(datos);
+            for (let i = 0; i < datos.length; i++) {
+                html += "<img src=" + datos[i].imagen + " height='150'> <br>" ;
+                //html += "<img src=" + urlBase + "Ejemplo_primera_conexion/" + datos[i].imagen + "height='150'> <br>";
+                html += datos[i].id + ' | ';
+                html += datos[i].titulo + ' | ';
+                html += datos[i].texto + ' | ';
+                html += datos[i].fecha + ' | ';
+                html += datos[i].categoria + '<hr>';
+            }
+            elDiv.innerHTML = html;
+        }
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let datos = JSON.parse(this.responseText); // CORRECCIÓN AQUÍ
+                bucle(datos); // MOVIDO AQUÍ
+            }
+        }
+        xmlhttp.open("GET", urlBase + "/api/select.php", true);
+        xmlhttp.send();
+    </script>
+</body>
+
+</html>
