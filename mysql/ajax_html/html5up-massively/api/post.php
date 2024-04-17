@@ -11,7 +11,7 @@
     /** Consulta */
     $q="SELECT * FROM noticias WHERE id='$id'";
 
-    $result = quer($q);
+    $result = consulta($q);
     header('Content-Type: application/json; charset=utf-8');
     $data = array();
     foreach($result as $row){

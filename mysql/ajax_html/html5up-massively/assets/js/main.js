@@ -304,6 +304,7 @@
 
 
 	let urlBase = "http://localhost:8888/NASCOR/MYSQL/ajax_html/html5up-massively/";
+	let endPoint = "api/post.php";
 
 	function dameDatos(item) {
 
@@ -322,6 +323,7 @@
 	`];
 
 	}
+
 
 	async function positivo(response) {
 		let datos = await response.json();
@@ -350,56 +352,33 @@
 			return '';
 		return decodeURIComponent(results[2].replace(/\+/g, " "));
 	}
-	function mapPost(dato) {
+	function mapPost(item) {
+		return [
+			`   <article>
+			<header>
+				<span class="date">${item.fecha}</span>
+				<h2><a href="generic.html?postId=${item.id}">${item.titulo}</a></h2>
+			</header>
+			<a href="generic.html?postId=${item.id}" class="image fit"><img src="${item.imagen}" alt="" /></a>
+			<p>${item.texto}</p>
+			<ul class="actions special">
+				<li><a href="generic.html?postId=${item.id}" class="button">Full Story</a></li>
+			</ul>
+		</article>
+	`];
 
 	}
 	async function recibido(datos) {
-		datos = await response.json();
+		datos = await datos.json();
 		let html = datos.map(mapPost);
 		//document.getElementById("posts").innerHTML = html;
-		$('#posts').html(html);
+		$('#main').html(html);
 	}
 	if (getParameterByName('postId')) {
-		let text = getParameterByName('postId');
-		alert("Estamos en generic, para mostrar el post id " + text);
-		fetch(urlBase + "api/post.php?id=" + text).
+		let post = getParameterByName('postId');
+		//alert("Estamos en generic, para mostrar el post id " + post);
+		fetch(urlBase + endPoint + "?id=" + post).
 			then(recibido).
 			catch(errDatos);
 	}
-
-	/*** CARGAMOS POSTS **
-	let urlImages = "http://localhost:8888/PHP-curso-nascor-ifcd0210/MySQL/Ejercicio_user_noticias/"
-	let html = "";
-	let urlBase = "http://localhost:8888/PHP-curso-nascor-ifcd0210/MySQL/";
-	
-	function dameDatos(item) {
-	
-		return [
-			`<article>
-				<header>
-					<span class="date">${item.fecha}</span>
-					<h2><a href="#">${item.titulo}</a></h2>
-				</header>
-				<a href="#" class="image fit"><img src="${urlImages + item.imagen}" alt="" /></a>
-				<p>${item.texto}</p>
-				<ul class="actions special">
-					<li><a href="generic.html?postId=${item.id}" class="button">Full Story</a></li>
-				</ul>
-			</article>
-			`];
-	}
-	
-	async function positivo(response) {
-		let datos = await response.json();
-		html = datos.map(dameDatos);
-		document.getElementById("posts").innerHTML = html;
-	}
-	
-	function errDatos(err) {
-		console.log(err);
-	}
-	fetch(urlBase + "api/select.php").
-		then(positivo).
-		catch(errDatos);
-		*/
 })(jQuery);
