@@ -18,3 +18,15 @@ function user ($user_email, $password)
 }
 }
 ?>
+//funncion para parsear credenciales
+
+function parse_credentials($file)
+{
+  $datos = parse_ini_file($file);
+  $host = $datos['host'];
+  $user = $datos['user'];
+  $password = $datos['password'];
+  $smtp_password = $datos['smtpPassword'];
+
+  return array($host, $user, $password,$smtp_password);
+}
