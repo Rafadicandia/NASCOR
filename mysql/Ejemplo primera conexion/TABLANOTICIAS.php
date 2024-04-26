@@ -1,24 +1,23 @@
 <?php
-require("ini.php");
-require("db_utilis.php");
+require ("ini.php");
+require ("db_utilis.php");
 
-$aviso = "";
 
-// Comprobamos si recibimos datos por post para insertarlos en la base de datos.
+// Comprobamos si recibimos datos por post 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["password"]) && isset($_POST['user_email'])) {
-    $password = $_POST['password'];
+    $user_password = $_POST['password'];
     $user_email = $_POST['user_email'];
-    if (!user($user_email, $password)) {
-        $aviso = "Usuario o contraseña no válidos: Vuelve a intentarlo";
-    } else {
-        $aviso = "Hola $user_email";
-    }
+    $_SESSION['user_email'] = $user_email;
+    $_SESSION['password'] = $user_password;
+   
+
 } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recogemos los datos del formulario
     $titulo = $_POST['titulo'];
     $texto = $_POST['texto'];
     $categoria = $_POST['categoria'];
     //$user_id = $_POST['user_id'];
+
     // Tratamiento de imagen
     $imagen = "img/default.jpg";
     if (isset($_FILES["file"]) && $_FILES['file']['size'] > 0) {
@@ -61,7 +60,7 @@ $resultCats = consulta($query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conexión a MySQL</title>
     <link rel="stylesheet" href="./styles.css">
-    
+
 
 </head>
 
@@ -69,7 +68,14 @@ $resultCats = consulta($query);
     <header class="user-header">
         <div class="container">
             <h1>
-                <?php echo $aviso; ?>
+                <?php
+
+                if (user($user_email, $user_password)) {
+                    echo "<h1>Hola $user_email</h1>" . " <a class='button' href='login.php'>logout</a>";
+                } else {
+                    echo "El usuario no existe en la base de datos. Si quieres subir tus posts has <a class='button' href='login.php'>login</a>";
+                }
+                ?>
             </h1>
         </div>
     </header>
@@ -77,7 +83,6 @@ $resultCats = consulta($query);
         <thead>
             <tr>
                 <th>Id</th>
-                <th>user_id</th>
                 <th>Título</th>
                 <th>Texto</th>
                 <th>Categoría</th>
@@ -92,9 +97,6 @@ $resultCats = consulta($query);
                         <?php echo $row["id"]; ?>
                     </td>
                     <td>
-                        <?php echo $row["user_id"]; ?>
-                    </td>
-                    <td>
                         <?php echo $row["titulo"]; ?>
                     </td>
                     <td>
@@ -105,7 +107,7 @@ $resultCats = consulta($query);
                             echo " ... ";
                         }
                         echo " <br><a href='noticia.php?id=" . $row['id'] . "'>Ir a la noticia completa -></a><br>";
-                        echo " <a href='noticia2.php?id=" . $row['id'] . "&update=true'>Modificar noticia -></a>";
+                        echo " <a href='noticia2.php?id=" . $row['id'] . "&modificar'>Modificar noticia -></a>";
                         ?>
 
                         <form action="eliminar.php" method="post">
@@ -161,8 +163,3 @@ $resultCats = consulta($query);
 </body>
 
 </html>
-
-<?php 
-// No deberías ejecutar otro bucle para imprimir datos de $result ya que lo has utilizado anteriormente.
-// Mover este código para arriba donde sea necesario.
-?>

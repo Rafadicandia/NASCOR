@@ -11,7 +11,7 @@ $conexion = mysqli_connect($host, $user, $password) or die ("No se puede conecta
 mysqli_select_db($conexion, $database) or die ("No se puede seleccionar la base de datos");
 
 if (!isset($_POST['id'])){
-    $mensaje = "ERROR: Faltan parámetros requeridos <a href='index.php'>Volver</a>";
+    $mensaje = "ERROR: Faltan parámetros requeridos <a href='tablanoticias.php'>Volver</a>";
     echo $mensaje;
     exit;
 }

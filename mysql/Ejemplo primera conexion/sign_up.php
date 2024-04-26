@@ -1,4 +1,31 @@
+<?php
+if (isset($_POST["user_name"], $_POST["user_email"], $_POST["password"])) {
+    // INI archivo.ini
+    $host = "localhost";
+    $user = "Rafael_erp";
+    $password = "Rafaelerp2024";
+    $database = "noticias";
+    // Conexión
+    $conexion = mysqli_connect($host, $user, $password, $database) or die ("No se puede conectar con el servidor");
+    
+    // Obtener valores del formulario
+    $nombre = $_POST["user_name"];
+    $email = $_POST["user_email"];
+    $password = $_POST["password"];
 
+    // Consulta SQL para insertar datos en la tabla usuarios
+    $q = "INSERT INTO usuarios (nombre, email, password) VALUES ('$nombre', '$email', '$password')";
+    
+    // Procedemos a insertar los datos.
+    if(mysqli_query($conexion, $q)) {
+        // Redirigir a otra página después de insertar los datos
+        header("Location: tablanoticias.php");
+        exit; // Importante: detener la ejecución del script después de redirigir
+    } else {
+        echo "Error al insertar datos: " . mysqli_error($conexion);
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,8 +41,15 @@
 
     <div class="grid">
 
-        <form action="tablanoticias.php" method="POST" class="form login">
+        <form action="sign_up.php" method="POST" class="form login">
 
+            <div class="form__field">
+                <label for="sign_up_user_name"><svg class="icon">
+                        <use xlink:href="#icon-user"></use>
+                    </svg><span class="hidden">User_name</span></label>
+                <input autocomplete="user_name" id="sign_up_user_name" type="text" name="user_name" class="form__input"
+                    placeholder="User_name" required>
+            </div>
             <div class="form__field">
                 <label for="login__user_email"><svg class="icon">
                         <use xlink:href="#icon-user"></use>
@@ -33,14 +67,10 @@
             </div>
 
             <div class="form__field">
-                <input type="submit" value="Log In">
+                <input type="submit" name="sign_up" value="Sign Up and Log In">
             </div>
 
         </form>
-
-        <p class="text--center">Not a member? <a href="sign_up.php">Sign up now</a> <svg class="icon">
-                <use xlink:href="#icon-arrow-right"></use>
-            </svg></p>
 
     </div>
 
@@ -55,10 +85,3 @@
         </symbol>
         <symbol id="icon-user" viewBox="0 0 1792 1792">
             <path
-                d="M1600 1405q0 120-73 189.5t-194 69.5H459q-121 0-194-69.5T192 1405q0-53 3.5-103.5t14-109T236 1084t43-97.5 62-81 85.5-53.5T538 832q9 0 42 21.5t74.5 48 108 48T896 971t133.5-21.5 108-48 74.5-48 42-21.5q61 0 111.5 20t85.5 53.5 62 81 43 97.5 26.5 108.5 14 109 3.5 103.5zm-320-893q0 159-112.5 271.5T896 896 624.5 783.5 512 512t112.5-271.5T896 128t271.5 112.5T1280 512z" />
-        </symbol>
-    </svg>
-
-</body>
-
-</html>
